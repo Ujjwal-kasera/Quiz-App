@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 
-/*hmra jo activity file h use hm OnClickListener se inherit kr rhe to isse
+/** hmra jo activity file h use hm OnClickListener se inherit kr rhe to isse
 * kya hoga hmre jitne bi textview,elements h page me sare clickable ho skte h
 */
 class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
@@ -50,10 +50,11 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
         btnSubmit=findViewById(R.id.btn_submit)
         mQuestionList = Constant.getQuestion()
 
-        /*QuizQuestionActivity File ko jo hmne OnClickListener se inherit kiya
+        /** QuizQuestionActivity File ko jo hmne OnClickListener se inherit kiya
         * to hm isme ye define kr rhe ki kaun se element click ho to kya hoga
         * aur kaun kaun se elements hmre clickable hoge
         */
+
         tvOptionOne?.setOnClickListener(this)
         tvOptionTwo?.setOnClickListener(this)
         tvOptionThree?.setOnClickListener(this)
@@ -79,7 +80,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
         tvOptionThree?.text = question.optionThree
         tvOptionFour?.text = question.optionFour
 
-        /* Agr hm last question pe hoge to ye
+        /** Agr hm last question pe hoge to ye
         * submit button ke text ko finish kr dega
         */
         if(mCurrentPosition==mQuestionList!!.size)
@@ -117,7 +118,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun selectedOptionView(tv:TextView,selectOptionNum:Int){
 
-        /* har bar jb bi hm kisi option ko click krege to ye defaultOptionView
+        /** har bar jb bi hm kisi option ko click krege to ye defaultOptionView
         * phle click kie option ko default style pe set kr dega..
         * agr hm isko use nhi krte to jitna bi option ko hm
         * select krege sb selected style me set hote jaege
@@ -125,8 +126,9 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
         defaultOptionsView()
         mSelectedOptionPosition=selectOptionNum
 
-        /*Change the colour of selected option
+        /** Change the colour of selected option
         to selected style as we have defined */
+
         tv.setTextColor(Color.parseColor("#363A43"))
         tv.setTypeface(tv.typeface,Typeface.BOLD)
         tv.background=ContextCompat.getDrawable(
@@ -135,7 +137,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
         )
     }
 
-    /* Upr hmne onCreate me define kiya h ki kaun kaun se element click ho skege
+    /** Upr hmne onCreate me define kiya h ki kaun kaun se element click ho skege
     * OnclickListener se to hmre isme ye define kiya h ki wo element
     * kya function perform kregeya unpe click hone ke bad kya hoga
     * Oncreate me hm phle jaise OnClickListener se ko define krete the
@@ -168,13 +170,13 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
 
-            // jb bi skip button click hoga to kya hoga wo ye define krega
+            /** jb bi skip button click hoga to kya hoga wo ye define krega */
             R.id.btn_skip->{
-                /* Agr koi bi option select nhi hua h aur hm
+                /** Agr koi bi option select nhi hua h aur hm
                 * click krte h to wo dusre question pe chla jaega
                 */
                 mCurrentPosition++
-                /* Agr to question abhi baki h to sb reset kr ke nya question assign kr do..
+                /** Agr to question abhi baki h to sb reset kr ke nya question assign kr do..
                 *  ya phr result wle interface pe chle jaoo
                 */
                 if(mCurrentPosition<=mQuestionList!!.size){
@@ -187,25 +189,25 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
                     startActivity(intent)
                     finish()
                 }
-                // Agr last question me hm h to submit ko finish me change kr do
+                /** Agr last question me hm h to submit ko finish me change kr do */
 
                 if(mCurrentPosition == mQuestionList!!.size){
                     btnSubmit?.text="@string/finish"
                 }
-                // jo Skip ko hmne next question kiya tha use phr se skip kr do
+                /** jo Skip ko hmne next question kiya tha use phr se skip kr do */
                 btnSkip?.text="Skip"
                 mSelectedOptionPosition=0
             }
 
             // Jb bi submit button click hoga to kya hoga ye define krega
             R.id.btn_submit ->{
-                /* Agr koi bi option select nhi hua h aur hm pe
+                /** Agr koi bi option select nhi hua h aur hm pe
                 * click krte h to wo reminder de ga
                 */
                 if(mSelectedOptionPosition==0){
                     Toast.makeText(this,"Please Select a option",Toast.LENGTH_SHORT).show()
                 }
-                /* Agr option select kiya h user to age ab decide kro ki selected
+                /** Agr option select kiya h user to age ab decide kro ki selected
                 * option shi h ki nhi aur uske according option ke UI ko update kro
                 */
                 else{
@@ -216,22 +218,21 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
                         mCorrectAnswer++
                     }
                     answerView(question.correctAnswer,R.drawable.correct_option_border_bg)
-                    /*
-                    Agr lst question h to finish display kro do submit button me
+                    /** Agr lst question h to finish display kro do submit button me
                     * wrna go to next question display kro
                     */
                     if(mCurrentPosition == mQuestionList!!.size) {
                         btnSubmit?.text = "@string/finish"
                     }
-                    /* next question me move krne ke lie user ko btane ke lie
+                    /** next question me move krne ke lie user ko btane ke lie
                     skip button ko next question me kr do..
                     kyuki hmne submit me aisa code nhi likha jo next question pe lete jae
                     to next question ke lie skip btn hi dabana pdega pr hm uska nam
                     change kr dege
                     */
                     btnSkip?.text="Next Question"
-                    //  agr question ktm ho gya h to main activity me return kr jao
-                    //  jo ki hme result page pe le jaega
+                    /**  agr question ktm ho gya h to main activity me return kr jao
+                        jo ki hme result page pe le jaega */
                     if(mCurrentPosition>mQuestionList!!.size){
                         val intent = Intent(this,ResultActivity::class.java)
                         intent.putExtra(Constant.USER_NAME,mUsername)
@@ -242,7 +243,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
                     }
                 }
             }
-            /* Initial submit button jime skip aur submit el hi btn se hota tha
+            /** Initial submit button jime skip aur submit el hi btn se hota tha
             ek  hi submit button tha skip button nhi tha
             */
 //            // Jb bi submit button click hoga to kya hoga ye define krega
@@ -294,7 +295,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener{
 //            }
         }
     }
-    /* this function is used to assigned the style to passed option value
+    /** this function is used to assigned the style to passed option value
     * isme hm jo bi option number pass krege ye use us passed drawable
     * style me change kr dega
     */
